@@ -16,6 +16,12 @@
     $account->username = $data->username;
     $account->email = $data->email;
     $account->password = $data->password;
+    $account->name = $data->name;
+    $account->province = $data->province;
+    $account->city = $data->city;
+    $account->address = $data->address;
+    $account->phone = $data->phone;
+    $account->picture = $data->picture;
 
     echo json_encode($account->createAccount());
 ?>

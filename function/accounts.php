@@ -22,16 +22,28 @@
         }
 
         public function createAccount () {
-            $query = "INSERT INTO " . $this->table . " SET username = :username, email = :email, password = :password";
+            $query = "INSERT INTO " . $this->table . " SET username = :username, email = :email, password = :password,  name = :name, province = :province, city = :city, address = :address, phone = :phone, picture = :picture";
             $result = $this->connect->prepare($query);
 
             $this->username = htmlspecialchars(strip_tags($this->username));
             $this->email = htmlspecialchars(strip_tags($this->email));
             $this->password = htmlspecialchars(strip_tags($this->password));
+            $this->name = htmlspecialchars(strip_tags($this->name));
+            $this->province = htmlspecialchars(strip_tags($this->province));
+            $this->city = htmlspecialchars(strip_tags($this->city));
+            $this->address = htmlspecialchars(strip_tags($this->address));
+            $this->phone = htmlspecialchars(strip_tags($this->phone));
+            $this->picture = htmlspecialchars(strip_tags($this->picture));
 
             $result->bindParam(":username", $this->username);
             $result->bindParam(":email", $this->email);
             $result->bindParam(":password", $this->password);
+            $result->bindParam(":name", $this->name);
+            $result->bindParam(":province", $this->province);
+            $result->bindParam(":city", $this->city);
+            $result->bindParam(":address", $this->address);
+            $result->bindParam(":phone", $this->phone);
+            $result->bindParam(":picture", $this->picture);
 
             if($this->checkDuplicateAccount() > 0) {
                 return array(
