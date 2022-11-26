@@ -1,7 +1,7 @@
 <?php
     class Accounts {
         private $connect, $table = "tb_account";
-        public $id, $username, $email, $password;
+        public $username, $email, $password;
 
         public function __construct ($database) {
             $this->connect = $database;
@@ -51,6 +51,51 @@
                 'error' => true,
                 'message' => 'Unknown error'
             );
+        }
+
+        public function findAccount () {
+            $query = ("SELECT * FROM " . $this->table . " WHERE username = :identifier OR email = :identifier");
+            $result = $this->connect->prepare($query);
+
+            $this->identifier = htmlspecialchars(strip_tags($this->identifier));
+            $result->bindParam(":identifier", $this->identifier);
+
+            $result->execute();
+            if($result->rowCount() > 0) {
+                return $result;
+            } else {
+                return null;
+            }
+        }
+
+        public function getAccount() {
+            $queryResult = $this->findAccount();
+            $this->password = htmlspecialchars(strip_tags($this->password));
+
+            if($queryResult == null) {
+                return array(
+                    'error' => true,
+                    'message' => 'Email or Username not found'
+                );
+            } else {
+                $accounts = array();
+                while($account = $queryResult->fetch(PDO::FETCH_ASSOC)){
+                    extract($account);
+                    if($this->password == $password) {
+                        return array(
+                            'error' => false,
+                            'message' => 'Login success',
+                            'id' => $id
+                        );
+                    } else {
+                        return array(
+                            'error' => true,
+                            'message' => 'Wrong password'
+                        );
+                    }
+                }
+                return $accounts;
+            }
         }
     }
 ?>
