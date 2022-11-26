@@ -21,7 +21,7 @@ CREATE TABLE `db_bantu_si_liar`.`tb_account` (
 -- INSERT DATA TO ACCOUNT TABLE
 
 INSERT INTO `tb_account` (
-    `id`, `username`, `email`, `password`, ) 
+    `id`, `username`, `email`, `password`, `name`, `province`, `city`, `address`, `phone`, `picture` ) 
     VALUES (NULL, 'admin', 'hansrio@gmail.com', 'BantuLiarAdmin198', 'Admin Bali', 'Bali', 'Kabupaten Tabanan', 'Desa Pandak Gede, Kediri', '083115698773', 'https://img.icons8.com/color/48/null/circled-user-male-skin-type-4--v1.png'
 )
 
