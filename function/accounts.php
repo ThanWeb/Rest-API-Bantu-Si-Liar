@@ -1,7 +1,7 @@
 <?php
     class Accounts {
         private $connect, $table = "tb_account";
-        public $username, $email, $password;
+        public $id, $username, $email, $password, $name, $province, $city, $address, $phone, $picture;
 
         public function __construct ($database) {
             $this->connect = $database;
@@ -107,6 +107,49 @@
                     }
                 }
                 return $accounts;
+            }
+        }
+
+        public function getAccountWithId() {
+            $query = ("SELECT * FROM " . $this->table . " WHERE id = :id");
+            $result = $this->connect->prepare($query);
+
+            $result->bindParam(":id", $this->id);
+            $result->execute();
+
+            if($result->rowCount() == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        public function getProfile() {
+            if($this->id == null) {
+                return array(
+                    'error' => true,
+                    'message' => 'Invalid ID'
+                );
+            }
+
+            if($this->getAccountWithId()) {
+                $query = ("SELECT name, province, city, address, phone, picture FROM " . $this->table . " WHERE id = :id");
+                $result = $this->connect->prepare($query);
+
+                $result->bindParam(":id", $this->id);
+                $result->execute();
+                $resultArray = $result->fetch(PDO::FETCH_ASSOC);
+                
+                return array(
+                    'error' => false,
+                    'message' => 'Load profile success',
+                    'data' => $resultArray
+                );
+            } else {
+                return array(
+                    'error' => true,
+                    'message' => 'Account not found'
+                );
             }
         }
     }
