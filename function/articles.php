@@ -32,5 +32,20 @@
                 );
             }
         }
+
+        public function getSingleArticle() {
+            $query = ("SELECT * FROM " . $this->table . " WHERE id = :id");
+            $result = $this->connect->prepare($query);
+
+            $result->bindParam(":id", $this->id);
+            $result->execute();
+            $resultArray = $result->fetch(PDO::FETCH_ASSOC);
+
+            return array(
+                'error' => false,
+                'message' => 'Load article success',
+                'data' => $resultArray
+            );
+        }
     }
 ?>
