@@ -28,3 +28,15 @@ INSERT INTO `tb_account` (
 -- CREATE REPORT TABLE
 
 -- CREATE ARTICLE TABLE
+
+CREATE TABLE `db_bantu_si_liar`.`tb_article` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `title` VARCHAR(200) NOT NULL , 
+    `writer` VARCHAR(100) NOT NULL , 
+    `created` VARCHAR(30) NOT NULL , 
+    `updated` VARCHAR(30) NOT NULL , 
+    `body` TEXT NOT NULL , 
+    `picture` VARCHAR(300) NOT NULL , 
+    `reference` VARCHAR(300) NOT NULL , 
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
