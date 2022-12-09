@@ -37,5 +37,46 @@
 
             $result->execute();
         }
+
+        public function getReportList() {
+            $query = ("SELECT * FROM " . $this->table);
+            $result = $this->connect->prepare($query);
+            $result->execute();
+
+
+            if($result != null) {
+                $reports = array();
+                while($report = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $reports[] = $report;
+                }
+
+                return array(
+                    'error' => false,
+                    'message' => 'Here we go',
+                    'data' => $reports
+                );
+            } else {
+                return array(
+                    'error' => true,
+                    'message' => 'Something wrong happen',
+                    'data' => []
+                );
+            }
+        }
+
+        public function getSingleReport() {
+            $query = ("SELECT * FROM " . $this->table . " WHERE id = :id");
+            $result = $this->connect->prepare($query);
+
+            $result->bindParam(":id", $this->id);
+            $result->execute();
+            $resultArray = $result->fetch(PDO::FETCH_ASSOC);
+
+            return array(
+                'error' => false,
+                'message' => 'Load article success',
+                'data' => $resultArray
+            );
+        }
     }
 ?>
