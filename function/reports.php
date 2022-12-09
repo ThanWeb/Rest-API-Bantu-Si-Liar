@@ -74,7 +74,7 @@
 
             return array(
                 'error' => false,
-                'message' => 'Load article success',
+                'message' => 'Load report success',
                 'data' => $resultArray
             );
         }

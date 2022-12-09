@@ -6,7 +6,7 @@
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../database/connect.php';
-    include_once '../function/articles.php';
+    include_once '../function/reports.php';
 
     $database = new Database();
     $connect = $database->connectDatabase();
@@ -14,4 +14,4 @@
     $report->id = isset($_GET['id']) ? $_GET['id'] : die();
 
     echo json_encode($report->getSingleReport());
-?>g
+?>
